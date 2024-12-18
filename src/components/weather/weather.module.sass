@@ -1,0 +1,78 @@
+.weatherBanner
+    width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 3.125rem
+    font-family: var(--font-mont)
+    .thisDay
+        width: 400px
+        height: 300px
+        border-radius: 1.25rem
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px
+        padding: 1.25rem
+        .container
+            width: 100%
+            height: 100%
+            display: flex
+            justify-content: space-between
+            flex-direction: column
+            .todayInfo
+                width: 100%
+                display: flex
+                justify-content: space-between
+                align-items: center
+                margin-top: 0.5rem
+                h2
+                    font-size: 6rem
+                    font-weight: 500
+                    line-height: 1
+                    color: var(--light-blue)
+                p
+                    font-size: 2.5rem
+                    font-weight: 400
+            .placeDate
+                display: flex
+                flex-direction: column
+                gap: 0.875rem
+                p
+                    color: var(--light-gray)
+                    font-size: 1.625em
+                    width: fit-content
+    .comprehensiveDetails
+        width: 750px
+        height: 300px
+        border-radius: 1.25rem
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px
+        padding: 2.625rem 2rem
+        background-image: url("/image/cloud.png")
+        background-size: 460px 202px
+        background-position: top right
+        background-repeat: no-repeat
+        .container
+            width: 100%
+            height: 100%
+            .details
+                display: flex
+                flex-direction: column
+                gap: 1.4rem
+                li
+                    display: flex
+                    gap: 1.25rem
+                    align-items: center
+                    .textContainer
+                        display: flex
+                        gap: 1rem
+                        span
+                            color: var(--light-gray)
+                            width: 120px
+                    button
+                        width: 38px
+                        height: 38px
+                        border-radius: 100px
+                        border: none
+                        background: white
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px
