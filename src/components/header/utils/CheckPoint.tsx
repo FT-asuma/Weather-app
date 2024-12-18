@@ -7,7 +7,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 
 const CheckPoint = () => {
   const { setTheme, theme, city, setCity } = useAppContext();
-  const [respond, setRespond] = useState<IWeather>();
+  
   const handleTheme = () => {
     setTheme(theme === "light" ? "dark" : theme);
   };
