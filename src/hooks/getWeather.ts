@@ -9,7 +9,7 @@ export const getWeather = async (
     const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
     const cityResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6f65ac8c443c1aa7d4ecd0f4a642b89f&units=metric&lang=ru`,
       { cache: "force-cache" }
     );
 
@@ -21,7 +21,7 @@ export const getWeather = async (
     const { lat, lon } = cityData.coord;
 
     const forecastResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`,
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6f65ac8c443c1aa7d4ecd0f4a642b89f&units=metric`,
       { cache: "force-cache" }
     );
 
