@@ -30,7 +30,6 @@ export const getWeather = async (
     }
 
     const forecastData = await forecastResponse.json();
-    console.log(forecastData)
     const result: IWeather = {
       city: cityData.name,
       country: cityData.sys.country,

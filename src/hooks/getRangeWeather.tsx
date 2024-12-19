@@ -1,16 +1,15 @@
 import { DailyWeather } from "@/interface";
+import process from "process";
 
 export const getRangeWeather = async (
   city: string,
-  days: number,
   setError: (message: string) => void
 ): Promise<DailyWeather[]> => {
   try {
     const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-
-    // Fetch city coordinates (latitude and longitude)
     const cityResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
+      { cache: "no-store" }
     );
 
     if (!cityResponse.ok) {
@@ -19,10 +18,10 @@ export const getRangeWeather = async (
 
     const cityData = await cityResponse.json();
     const { lat, lon } = cityData.coord;
-
-    // Use the correct endpoint (onecall) for a multi-day forecast
+    
     const forecastResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${apiKey}&units=metric&lang=ru`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${apiKey}&units=metric&lang=ru`,
+      { cache: "no-store" } // Disable caching here as well
     );
 
     if (!forecastResponse.ok) {
@@ -34,7 +33,8 @@ export const getRangeWeather = async (
     // Check the response and log it
     console.log(forecastData);  // Make sure this logs data
 
-    const daily = forecastData.daily.slice(0, days).map((entry: any) => ({
+    // Return all days (no slicing)
+    const daily = forecastData.daily.map((entry: any) => ({
       date: new Date(entry.dt * 1000).toLocaleDateString("ru-RU", {
         weekday: "short",
         day: "numeric",
@@ -53,7 +53,7 @@ export const getRangeWeather = async (
     }));
 
     setError("");
-    return daily;
+    return forecastData;
   } catch (error: any) {
     setError(error.message || "Не удалось загрузить данные о погоде. Попробуйте снова позже.");
     return [];

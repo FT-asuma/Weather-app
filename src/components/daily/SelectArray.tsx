@@ -6,8 +6,9 @@ import { useAppContext } from "@/context/AppProvider";
 import { getRangeWeather } from "@/hooks/getRangeWeather";
 import { Loading } from "../loading";
 import { Card } from "./card";
+import { getWeather } from "@/hooks/getWeather";
 const SelectArray = () => {
-  const [respond, setRespond] = useState<any[] | any>();
+  const [respond, setRespond] = useState<IWeather>();
   const [error, setError] = useState<string>();
   const { city } = useAppContext();
   const [key, setKey] = useState(0);
@@ -15,9 +16,9 @@ const SelectArray = () => {
     if (city) {
       const fetchWeather = async () => {
         try {
-          const data = await getRangeWeather(city, 8, setError);
-          setRespond(data)
-          setKey((prevKey) => prevKey + 1);
+          const data = await getWeather("Tashkent", setError, respond);
+          setRespond(data!)
+          setKey((prevKey:number) => prevKey + 1);
         } catch (err) {
           setError("Unable to fetch weather data");
         }
