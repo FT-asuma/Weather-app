@@ -14,7 +14,7 @@ export const getWeather = async (
     );
 
     if (!cityResponse.ok) {
-      throw new Error("Город не найден.");
+      setError("Город не найден.");
     }
 
     const cityData = await cityResponse.json();
@@ -26,7 +26,7 @@ export const getWeather = async (
     );
 
     if (!forecastResponse.ok) {
-      throw new Error("Ошибка при получении прогноза погоды.");
+      setError("Ошибка при получении прогноза погоды.");
     }
 
     const forecastData = await forecastResponse.json();
