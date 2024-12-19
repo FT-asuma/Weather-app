@@ -15,8 +15,6 @@ export interface IWeather {
     precipitation: number;
     weather: string; 
   };
-
-  daily: DailyWeather[];
 }
 
 export interface DailyWeather {

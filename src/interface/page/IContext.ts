@@ -3,4 +3,5 @@ export interface IContext {
   setTheme: React.Dispatch<React.SetStateAction<string>>;
   city: string;
   setCity: React.Dispatch<React.SetStateAction<string>>;
+  getWeatherFn: Function
 }

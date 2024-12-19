@@ -38,7 +38,6 @@ const WeatherBanner = () => {
 
   return (
     <motion.div
-      key={key}
       className={styles.weatherBanner}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -59,7 +58,7 @@ const WeatherBanner = () => {
           delay: 0.2,
         }}
       >
-        {respond ? <ThisDay respond={respond} /> : <Loading />}
+        {respond ? <ThisDay respond={respond} key={key} /> : <Loading />}
       </motion.div>
 
       <motion.div
@@ -73,7 +72,7 @@ const WeatherBanner = () => {
           delay: 0.4,
         }}
       >
-        {respond ? <Details respond={respond} /> : <Loading />}
+        {respond ? <Details respond={respond} key={key} /> : <Loading />}
       </motion.div>
     </motion.div>
   );

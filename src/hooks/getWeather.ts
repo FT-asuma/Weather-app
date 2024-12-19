@@ -30,6 +30,7 @@ export const getWeather = async (
     }
 
     const forecastData = await forecastResponse.json();
+    console.log(forecastData)
     const result: IWeather = {
       city: cityData.name,
       country: cityData.sys.country,
@@ -42,7 +43,6 @@ export const getWeather = async (
         precipitation: forecastData.list[0].pop || 0,
         weather: forecastData.list[0].weather[0].description,
       },
-      daily: aggregateDailyForecast(forecastData.list),
     };
 
     setError(""); 
@@ -60,44 +60,4 @@ export const getWeather = async (
 
     return null;
   }
-};
-
-const aggregateDailyForecast = (list: any[]) => {
-  const daily: any[] = [];
-  const groupedData: { [key: string]: any[] } = {};
-
-  list.forEach((entry) => {
-    const date = new Date(entry.dt * 1000).toLocaleDateString("ru-RU", {
-      weekday: "short",
-      day: "numeric",
-      month: "long",
-    });
-
-    if (!groupedData[date]) groupedData[date] = [];
-    groupedData[date].push(entry);
-  });
-
-  for (const date in groupedData) {
-    const dayData = groupedData[date];
-
-    const minTemp = Math.min(...dayData.map((d) => d.main.temp_min));
-    const maxTemp = Math.max(...dayData.map((d) => d.main.temp_max));
-    const avgFeelsLike =
-      dayData.reduce((sum, d) => sum + d.main.feels_like, 0) / dayData.length;
-
-    daily.push({
-      date,
-      temperature: {
-        min: minTemp,
-        max: maxTemp,
-      },
-      feelsLike: avgFeelsLike,
-      pressure: dayData[0].main.pressure,
-      windSpeed: dayData[0].wind.speed,
-      precipitation: dayData[0].pop || 0,
-      weather: dayData[0].weather[0].description,
-    });
-  }
-
-  return daily;
 };
