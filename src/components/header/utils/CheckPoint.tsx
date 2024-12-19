@@ -6,8 +6,8 @@ import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 const CheckPoint = () => {
-  const { setTheme, theme, setCity } = useAppContext();
-  
+  const { setTheme, theme, setCity, setError } = useAppContext();
+
   const handleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -19,7 +19,11 @@ const CheckPoint = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCity(inputValue)
+    if (inputValue.trim() === "") {
+      setError("Ввод не может быть пустым");
+    } else {
+      setCity(inputValue);
+    }
     setInputValue("");
   };
   return (
@@ -32,7 +36,12 @@ const CheckPoint = () => {
           height={28}
         />
       </button>
-      <form id="form submit" name="submit" className={styles.submitForm} onSubmit={handleSubmit}>
+      <form
+        id="form submit"
+        name="submit"
+        className={styles.submitForm}
+        onSubmit={handleSubmit}
+      >
         <input
           type="text"
           onChange={handleChange}
