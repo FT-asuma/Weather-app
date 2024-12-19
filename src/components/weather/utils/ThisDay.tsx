@@ -75,17 +75,34 @@ const ThisDay = () => {
           </motion.p>
         </div>
         <motion.div
-          initial={{ opacity: 0, rotate: 0 }}
-          animate={{ opacity: 1, rotate: 360 }}
-          transition={{ duration: 1 }}
-        >
-          <Image
-            src={"/icons/sun.svg"}
-            alt="sun icon"
-            width={120}
-            height={120}
-          />
-        </motion.div>
+        initial={{ opacity: 0, rotate: 0 }}
+        animate={
+          respond.daily[0].forecastType === "Ясно"
+            ? { opacity: 1, rotate: 360 }
+            : { opacity: 1 }
+        }
+        transition={{ duration: 1 }}
+        className={styles.imageContainer}
+      >
+        <Image
+          src={
+            respond.daily[0].forecastType === "Дождь"
+              ? "/icons/rainy.svg"
+              : respond.daily[0].forecastType === "Ясно"
+              ? "/icons/sun.svg"
+              : respond.daily[0].forecastType === "Облачно"
+              ? "/icons/cloud.svg"
+              : respond.daily[0].forecastType === "Небольшой дождь"
+              ? "/icons/small_rain.svg"
+              : respond.daily[0].forecastType === "Снег"
+              ? "/icons/snow.svg"
+              : "/icons/rain-with-sun.svg"
+          }
+          width={120}
+          height={120}
+          alt="weather icon"
+        />
+      </motion.div>
       </div>
       <div className={styles.placeDate}>
         <motion.p
