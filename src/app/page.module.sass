@@ -1,5 +1,29 @@
-.main 
+.light
     display: flex
     justify-content: center
     min-width: 100vw
     min-height: 100vh
+    background: #fff
+    transition: all 0.3s ease
+
+.dark
+    transition: all 0.3s ease
+    display: flex
+    justify-content: center
+    min-width: 100vw
+    min-height: 100vh
+    background: #171515 !important
+    h1, h3, h4, button, p
+        color: #fff
+    input
+        color: #fff
+        &::placeholder
+            color: #fff
+
+.loading
+    width: 100vw
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    background: var(--light-blue-opacity)

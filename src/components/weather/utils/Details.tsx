@@ -1,11 +1,14 @@
 "use client";
 
-import { IWeather } from "@/interface";
-import styles from "../weather.module.sass";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
-const Details = ({ respond }: { respond: IWeather }) => {
+import styles from "../weather.module.sass";
+
+import { motion } from "framer-motion";
+import { useAppContext } from "@/context/AppProvider";
+
+const Details = () => {
+  const { theme, respond } = useAppContext();
   const pressureCategory = (pressure: number) =>
     pressure < 1010
       ? "Низкое давление"
@@ -47,19 +50,15 @@ const Details = ({ respond }: { respond: IWeather }) => {
       ? "Очень сильный ветер"
       : "Ураган";
 
-  const renderDetail = (
-    icon: string,
-    title: string,
-    value: string
-  ) => (
+  const renderDetail = (icon: string, title: string, value: string) => (
     <motion.li
-      key={title} 
-      className={styles.detailItem} 
+      key={title}
+      className={styles.detailItem}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <button>
+      <button style={theme === "dark" ? { background: "#1a1a1a" } : undefined}>
         <Image
           src={icon}
           alt={`${title} icon`}
@@ -81,9 +80,9 @@ const Details = ({ respond }: { respond: IWeather }) => {
         {renderDetail(
           "/icons/temp.svg",
           "Температура",
-          `${Math.round(respond.current.temperature)}° - ощущается как ${Math.round(
-            respond.current.feelsLike
-          )}°`
+          `${Math.round(
+            respond.current.temperature
+          )}° - ощущается как ${Math.round(respond.current.feelsLike)}°`
         )}
         {renderDetail(
           "/icons/pressure.svg",

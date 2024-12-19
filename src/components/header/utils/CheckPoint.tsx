@@ -6,10 +6,10 @@ import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 const CheckPoint = () => {
-  const { setTheme, theme, city, setCity } = useAppContext();
+  const { setTheme, theme, setCity } = useAppContext();
   
   const handleTheme = () => {
-    setTheme(theme === "light" ? "dark" : theme);
+    setTheme(theme === "light" ? "dark" : "light");
   };
   const [inputValue, setInputValue] = useState("");
 
@@ -32,11 +32,11 @@ const CheckPoint = () => {
           height={28}
         />
       </button>
-      <form className={styles.submitForm} onSubmit={handleSubmit}>
+      <form id="form submit" name="submit" className={styles.submitForm} onSubmit={handleSubmit}>
         <input
           type="text"
           onChange={handleChange}
-          placeholder={city+"..."}
+          placeholder="Выбрать город"
         />
         <button type="submit">Поиск</button>
       </form>

@@ -15,18 +15,16 @@ export interface IWeather {
     precipitation: number;
     weather: string; 
   };
-  daily: any
+  daily: DailyWeather[]
 }
 
 export interface DailyWeather {
-  date: string; 
+  date: string;
+  day: string; 
+  forecastType: string;
   temperature: {
-    min: number;
-    max: number;
+    max: number; 
+    min: number; 
   };
-  feelsLike: number;
-  pressure: number; 
-  windSpeed: number;
-  precipitation: number;
-  weather: string;
+  weather: string; 
 }

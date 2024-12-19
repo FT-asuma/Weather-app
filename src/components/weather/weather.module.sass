@@ -5,74 +5,133 @@
     align-items: center
     gap: 3.125rem
     font-family: var(--font-mont)
-    .thisDay
-        width: 400px
-        height: 300px
-        border-radius: 1.25rem
-        box-shadow: var(--shadow)
-        padding: 1.25rem
-        .container
-            width: 100%
-            height: 100%
+
+.thisDay
+    width: 400px
+    height: 300px
+    border-radius: 1.25rem
+    box-shadow: var(--shadow)
+    padding: 1.25rem
+
+    .container
+        width: 100%
+        height: 100%
+        display: flex
+        justify-content: space-between
+        flex-direction: column
+
+    .todayInfo
+        width: 100%
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin-top: 0.5rem
+
+        h2
+            font-size: 6rem
+            font-weight: 500
+            line-height: 1
+            color: var(--light-blue)
+
+        p
+            font-size: 2.5rem
+            font-weight: 400
+
+    .placeDate
+        display: flex
+        flex-direction: column
+        gap: 0.875rem
+
+        p
+            color: var(--light-gray)
+            font-size: 1.625em
+            width: fit-content
+
+.comprehensiveDetails
+    width: 750px
+    height: 300px
+    border-radius: 1.25rem
+    box-shadow: var(--shadow)
+    padding: 2.625rem 2rem
+    background-image: url("/image/cloud.png")
+    background-size: 460px 202px
+    background-position: top right
+    background-repeat: no-repeat
+
+    .container
+        width: 100%
+        height: 100%
+
+    .details
+        display: flex
+        flex-direction: column
+        gap: 1.4rem
+
+        li
             display: flex
-            justify-content: space-between
-            flex-direction: column
-            .todayInfo
-                width: 100%
-                display: flex
-                justify-content: space-between
-                align-items: center
-                margin-top: 0.5rem
-                h2
-                    font-size: 6rem
-                    font-weight: 500
-                    line-height: 1
-                    color: var(--light-blue)
-                p
-                    font-size: 2.5rem
-                    font-weight: 400
-            .placeDate
-                display: flex
-                flex-direction: column
-                gap: 0.875rem
-                p
-                    color: var(--light-gray)
-                    font-size: 1.625em
-                    width: fit-content
+            gap: 1.25rem
+            align-items: center
+
+        .textContainer
+            display: flex
+            gap: 1rem
+
+            span
+                color: var(--light-gray)
+                width: 120px
+
+        button
+            width: 38px
+            height: 38px
+            border-radius: 100px
+            border: none
+            background: white
+            display: flex
+            justify-content: center
+            align-items: center
+            box-shadow: var(--shadow)
+            transition: 0.3s ease
+
+@media screen and (max-width: 1201px)
+    .weatherBanner
+        flex-direction: column
+        gap: 1rem
+
+    .thisDay
+        width: 100%
+        height: auto
+        .placeDate
+            gap: 0.3rem
+            p
+                font-size: 1.1rem
+
     .comprehensiveDetails
-        width: 750px
-        height: 300px
-        border-radius: 1.25rem
-        box-shadow: var(--shadow)
-        padding: 2.625rem 2rem
-        background-image: url("/image/cloud.png")
-        background-size: 460px 202px
+        width: 100%
+        height: auto
+        padding: 1.5rem
+        background-size: 350px 150px
         background-position: top right
-        background-repeat: no-repeat
-        .container
-            width: 100%
-            height: 100%
-            .details
-                display: flex
-                flex-direction: column
-                gap: 1.4rem
-                li
-                    display: flex
-                    gap: 1.25rem
-                    align-items: center
-                    .textContainer
-                        display: flex
-                        gap: 1rem
-                        span
-                            color: var(--light-gray)
-                            width: 120px
-                    button
-                        width: 38px
-                        height: 38px
-                        border-radius: 100px
-                        border: none
-                        background: white
-                        display: flex
-                        justify-content: center
-                        align-items: center
-                        box-shadow: var(--shadow)
+
+@media screen and (max-width: 768px)
+    .details
+        gap: 0.5rem !important
+    .textContainer
+        align-items: center
+        span
+            font-size: 0.9rem
+            width: 100px !important
+        p
+            max-width: 250px
+            font-size: 0.9rem
+
+@media screen and (max-width: 540px)
+    .details
+        li
+            gap: 0.4rem !important 
+    .textContainer
+        span
+            font-size: 0.7rem
+            width: 76px !important
+        p
+            font-size: 0.7rem
+            width: 170px

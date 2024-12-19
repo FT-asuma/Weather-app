@@ -34,8 +34,6 @@
                 border-radius: 0.6rem
                 font-size: 1rem
                 font-family: var(--font-mont)
-                &::placeholder
-                    color: #000
             button
                 background: var(--light-blue-opacity)
                 border: none
@@ -47,3 +45,8 @@
                 border-radius: 0.6rem
                 font-size: 1rem
                 font-family: var(--font-mont)
+
+@media screen and (max-width: 650px)
+    .header 
+        flex-direction: column
+        gap: 0.5rem

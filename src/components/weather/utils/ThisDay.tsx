@@ -1,18 +1,21 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion"; // Import framer-motion
-import styles from "../weather.module.sass";
-import { IWeather } from "@/interface";
-import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-import { ErrorAlert } from "@/components/alert";
 
-const ThisDay = ({ respond }: { respond: IWeather }) => {
+import Image from "next/image";
+
+import styles from "../weather.module.sass";
+
+import moment from "moment-timezone";
+import { motion } from "framer-motion";
+
+import { ErrorAlert } from "@/components/alert";
+import { useAppContext } from "@/context/AppProvider";
+
+const ThisDay = () => {
   const [timezone, setTimezone] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Loading state
+  const {respond, setError, isLoading, error} = useAppContext() 
 
   useEffect(() => {
     if (respond.coord) {
@@ -30,14 +33,11 @@ const ThisDay = ({ respond }: { respond: IWeather }) => {
             setTimezone(data.timezone);
             const timeInCity = moment.tz(data.timezone).format("HH:mm");
             setCurrentTime(timeInCity);
-            setIsLoading(false);
           } else {
             setError("Unable to fetch timezone");
-            setIsLoading(false);
           }
         } catch (err) {
           setError("An error occurred while fetching timezone");
-          setIsLoading(false);
         }
       };
 

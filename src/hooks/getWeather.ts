@@ -9,7 +9,7 @@ export const getWeather = async (
     const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
     const cityResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6f65ac8c443c1aa7d4ecd0f4a642b89f&units=metric&lang=ru`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`,
       { cache: "force-cache" }
     );
 
@@ -21,7 +21,7 @@ export const getWeather = async (
     const { lat, lon } = cityData.coord;
 
     const forecastResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6f65ac8c443c1aa7d4ecd0f4a642b89f&units=metric`,
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=ru`,
       { cache: "force-cache" }
     );
 
@@ -30,6 +30,7 @@ export const getWeather = async (
     }
 
     const forecastData = await forecastResponse.json();
+
     const result: IWeather = {
       city: cityData.name,
       country: cityData.sys.country,
@@ -42,9 +43,40 @@ export const getWeather = async (
         precipitation: forecastData.list[0].pop || 0,
         weather: forecastData.list[0].weather[0].description,
       },
+      daily: [],
     };
 
-    setError(""); 
+    let currentDay: string | null = null;
+    let dayCount = 0;
+
+    forecastData.list.forEach((entry: any) => {
+      const date = new Date(entry.dt * 1000);
+      const day = date.toLocaleDateString("ru-RU", { weekday: "short" });
+      const fullDate = date.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
+
+      if (currentDay !== fullDate && dayCount < 8) {
+        const forecastType = determineForecastType(entry.weather[0].main);
+
+        result.daily.push({
+          date: fullDate,
+          day: day,
+          forecastType: forecastType,
+          temperature: {
+            max: entry.main.temp_max,
+            min: entry.main.temp_min,
+          },
+          weather: entry.weather[0].description,
+        });
+        currentDay = fullDate;
+        dayCount++;
+      }
+
+      if (dayCount >= 8) {
+        return;
+      }
+    });
+
+    setError("");
     return result;
   } catch (error: any) {
     const errorMessage =
@@ -54,9 +86,31 @@ export const getWeather = async (
     setError(errorMessage);
 
     if (previousData) {
-      return previousData; 
+      return previousData;
     }
 
     return null;
+  }
+};
+
+// 
+const determineForecastType = (main: string): string => {
+  switch (main.toLowerCase()) {
+    case "rain":
+      return "Дождь";
+    case "light rain":
+      return "Небольшой дождь";
+    case "snow":
+      return "Снег";
+    case "clouds":
+      return "Облачно";
+    case "clear":
+      return "Ясно";
+    case "thunderstorm":
+      return "Гроза";
+    case "drizzle":
+      return "Морось";
+    default:
+      return "Неизвестно";
   }
 };
