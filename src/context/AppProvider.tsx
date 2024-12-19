@@ -50,8 +50,8 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         try {
           const data = await getWeather(city, setError, respond);
           setRespond(data!);
-        } catch (err) {
-          setError("Unable to fetch weather data");
+        } catch (err:any) {
+          setError("Невозможно получить данные о погоде"+err.message);
         } finally {
           setLoading(false);
         }
