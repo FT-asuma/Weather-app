@@ -98,6 +98,7 @@ const ThisDay = () => {
               ? "/icons/snow.svg"
               : "/icons/rain-with-sun.svg"
           }
+          priority
           width={120}
           height={120}
           alt="weather icon"

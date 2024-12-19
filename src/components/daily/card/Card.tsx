@@ -55,6 +55,7 @@ const Card = ({
               ? "/icons/snow.svg"
               : "/icons/rain-with-sun.svg"
           }
+          priority
           width={40}
           height={40}
           alt="weather icon"

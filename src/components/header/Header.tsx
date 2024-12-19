@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className={styles.header}>
       <Link href={"/"} className={styles.title}>
-        <Image src={"/logo.png"} alt="logo" width={65} height={65} />
+        <Image priority src={"/logo.png"} alt="logo" width={65} height={65} />
         Vue Weather
       </Link>
       <CheckPoint />

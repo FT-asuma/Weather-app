@@ -3,7 +3,7 @@ import styles from "./loader.module.sass";
 const Loading = () => {
   return (
     <div className={styles.loadingContainer}>
-      <Image src={"/logo.png"} alt="logo image loader" width={65} height={65} />
+      <Image priority src={"/logo.png"} alt="logo image loader" width={65} height={65} />
     </div>
   );
 };
