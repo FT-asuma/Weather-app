@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.sass";
 import AppProvider from "@/context/AppProvider";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 const mont = Montserrat({
   subsets: ["latin"],
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mont.variable}>
-        <Analytics/>
+        <Analytics />
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
