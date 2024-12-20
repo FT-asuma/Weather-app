@@ -15,10 +15,11 @@ export const getWeather = async (
 
     if (!cityResponse.ok) {
       setError("Город не найден.");
+      return null;
     }
 
     const cityData = await cityResponse.json();
-    const { lat, lon } = cityData.coord;
+    const { lat, lon, timezone } = cityData.coord;
 
     const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=ru`,
@@ -27,6 +28,7 @@ export const getWeather = async (
 
     if (!forecastResponse.ok) {
       setError("Ошибка при получении прогноза погоды.");
+      return null;
     }
 
     const forecastData = await forecastResponse.json();
@@ -35,6 +37,7 @@ export const getWeather = async (
       city: cityData.name,
       country: cityData.sys.country,
       coord: cityData.coord,
+      timezone: cityData.timezone,
       current: {
         temperature: forecastData.list[0].main.temp,
         feelsLike: forecastData.list[0].main.feels_like,
@@ -50,7 +53,7 @@ export const getWeather = async (
     let dayCount = 0;
 
     forecastData.list.forEach((entry: any) => {
-      const date = new Date(entry.dt * 1000);
+      const date = new Date((entry.dt + cityData.timezone) * 1000);
       const day = date.toLocaleDateString("ru-RU", { weekday: "short" });
       const fullDate = date.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
 
@@ -92,7 +95,6 @@ export const getWeather = async (
     return null;
   }
 };
-
 // 
 const determineForecastType = (main: string): string => {
   switch (main.toLowerCase()) {

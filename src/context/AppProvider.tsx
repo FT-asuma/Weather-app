@@ -12,6 +12,7 @@ const defaultState: IContext = {
   city: "Tashkent",
   setCity: () => {},
   respond: {
+    timezone: "",
     city: "",
     country: "",
     coord: {
@@ -42,30 +43,36 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<string>("light");
   const [city, setCity] = useState<string>("Tashkent");
   const [error, setError] = useState<string>("");
-  const [respond, setRespond] = useState<IWeather>();
+  const [respond, setRespond] = useState<IWeather | undefined>();
   const [isLoading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     if (city) {
       const fetchWeather = async () => {
+        setLoading(true);
+        setError("");
         try {
           const data = await getWeather(city, setError, respond);
-          setRespond(data!);
-        } catch (err:any) {
-          setError("Невозможно получить данные о погоде"+err.message);
+          if (data) {
+            setRespond(data);
+          }
+        } catch (err: any) {
+          setError(`Невозможно получить данные о погоде: ${err.message}`);
         } finally {
           setLoading(false);
         }
       };
-
       fetchWeather();
     }
   }, [city]);
-  if (!respond || isLoading === true)
+
+  if (isLoading)
     return (
       <main className={styles.loading}>
         <Loading />
       </main>
     );
+
   return (
     <AppContext.Provider
       value={{
@@ -73,13 +80,13 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         theme,
         city,
         setCity,
-        respond,
+        respond: respond!,
         isLoading,
         setError,
         error,
       }}
     >
-      <main className={theme === "light" ? styles.light : `${styles.dark}`}>
+      <main className={theme === "light" ? styles.light : styles.dark}>
         {error && <ErrorAlert message={error} />}
         {children}
       </main>

@@ -1,6 +1,7 @@
 export interface IWeather {
   city: string; 
   country: string;
+  timezone:any
   coord: {
     lon: number, lat:number
   }
